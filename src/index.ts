@@ -5,6 +5,7 @@ import cookieParser from 'cookie-parser'
 import compression from 'compression'
 import cors from 'cors'
 import mongoose from 'mongoose'
+import router from './router/index.js'
 
 const app = express()
 
@@ -22,8 +23,10 @@ server.listen(8080, () => {
     console.log('Server running on http://localhost:8080/')
 })
 
-const MONGO_URL = 'mongodb+srv://jovmlads:xxXPc1wv9eN5QlDp@cluster0.knwszp6.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0'
+const MONGO_URL = 'mongodb+srv://jovmlads:xxXPc1wv9eN5QlDp@cluster0.knwszp6.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0&tls=true'
 
 mongoose.Promise = Promise
 mongoose.connect(MONGO_URL)
 mongoose.connection.on('error', (error: Error) => console.log(error))
+
+app.use('/', router())
